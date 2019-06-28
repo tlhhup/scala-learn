@@ -1,6 +1,8 @@
 package org.tlh.springboot.scala.service
 
+import java.util
 import java.util.List
+import java.util.stream.Collectors
 
 import org.springframework.beans.BeanUtils
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,9 +24,15 @@ class UserService {
   @Autowired
   private val userRepository: UserRepository = null
 
-  def list: List[User] = {
+  def list: List[UserDto] = {
     val users = this.userRepository.findAll
-    users
+    val result = new util.ArrayList[UserDto]
+    users.forEach { user =>
+      val item = new UserDto()
+      BeanUtils.copyProperties(user, item)
+      result.add(item)
+    }
+    result
   }
 
   @Transactional
@@ -39,10 +47,5 @@ class UserService {
     this.userRepository.deleteById(id)
   }
 
-  private def user2Dto = (user: User) => {
-    val item = new UserDto()
-    BeanUtils.copyProperties(user, item)
-    item
-  }
 
 }

@@ -34,7 +34,7 @@ class UserController {
   }
 
   @GetMapping(value = Array("/list"))
-  def list: List[User] = {
+  def list: List[UserDto] = {
     this.userService.list
   }
 

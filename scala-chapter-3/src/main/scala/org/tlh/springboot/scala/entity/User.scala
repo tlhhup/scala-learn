@@ -1,24 +1,27 @@
 package org.tlh.springboot.scala.entity
 
 import javax.persistence._
-import lombok.Data
+
+import scala.beans.BeanProperty
 
 /**
   * <br>
   * Created by hu ping on 6/28/2019
   * <p>
   */
-@Data
 @Entity
 @Table(name = "sys_users")
 class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private var id: Int = _
+  @BeanProperty
+  var id: Int = _
 
-  private var name: String = _
+  @BeanProperty
+  var name: String = _
 
-  private var age: Int = _
+  @BeanProperty
+  var age: Int = _
 
 }
