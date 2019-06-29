@@ -1,8 +1,6 @@
 package org.tlh.springboot.scala.service
 
-import java.util
 import java.util.List
-import java.util.stream.Collectors
 
 import org.springframework.beans.BeanUtils
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 import org.tlh.springboot.scala.dto.UserDto
 import org.tlh.springboot.scala.entity.User
 import org.tlh.springboot.scala.repository.UserRepository
+import collection.JavaConverters._
 
 /**
   * <br>
@@ -25,13 +24,8 @@ class UserService {
   private val userRepository: UserRepository = null
 
   def list: List[UserDto] = {
-    val users = this.userRepository.findAll
-    val result = new util.ArrayList[UserDto]
-    users.forEach { user =>
-      val item = new UserDto()
-      BeanUtils.copyProperties(user, item)
-      result.add(item)
-    }
+    val users = this.userRepository.findAll.asScala
+    val result = users.map(user2Dto).asJava
     result
   }
 
@@ -45,6 +39,12 @@ class UserService {
   @Transactional
   def deleteUser(id: Int): Unit = {
     this.userRepository.deleteById(id)
+  }
+
+  def user2Dto(user: User) = {
+    val userDto = new UserDto
+    BeanUtils.copyProperties(user, userDto)
+    userDto
   }
 
 

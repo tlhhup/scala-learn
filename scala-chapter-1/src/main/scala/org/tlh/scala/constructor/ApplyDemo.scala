@@ -1,11 +1,12 @@
 package org.tlh.scala.constructor
 
 /**
-  * 对象的apply方法，必须定义中对象中，相对于构造函数，用于new class对象
+  * 对象的apply方法，必须定义中对象中，相对于构造函数，用于new class对象<br>
+  * 出现 类名(参数....)及调用的是apply方法
   * Created by hu ping on 6/26/2019
   * <p>
   */
-class ApplyDemo{
+class ApplyDemo {
 
 }
 
