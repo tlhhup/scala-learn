@@ -14,3 +14,7 @@
 		        case p @ Person(_,age) => println(s"${p.name},age is $age")
 		        case _ => println("Not a person")
 		    }
+2. 集合框架(By default, Scala always picks immutable collections)
+    1. scala.collection：两种特性兼顾
+    2. scala.collection.immutable：不可变
+    3. scala.collection.mutable：可变
