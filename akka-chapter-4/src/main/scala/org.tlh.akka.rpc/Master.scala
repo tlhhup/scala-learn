@@ -26,7 +26,7 @@ class Master(host: String, port: Int) extends Actor with ActorLogging {
   override def preStart(): Unit = {
     log.info("Master run on host:{} port:{}", host, port)
     //启动worker检查
-    context.system.scheduler.scheduleAtFixedRate(0 millis, CHECK_INTERVAL milli, self, CheckTimeOutWorker)
+    context.system.scheduler.schedule(0 millis, CHECK_INTERVAL milli, self, CheckTimeOutWorker)
   }
 
   override def receive: Receive = {

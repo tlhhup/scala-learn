@@ -33,13 +33,22 @@ class AkkaWordCount extends Actor {
 object AkkaWordCount {
 
   def main(args: Array[String]): Unit = {
-    val filePath = Array(
+    /*val filePath = Array(
       "/Users/huping/IdeaProjects/scala-learn/akka-chapter-3/docs/a.txt",
       "/Users/huping/IdeaProjects/scala-learn/akka-chapter-3/docs/a.txt")
 
     val wordCount = ActorSystem("wordCount")
     filePath.foreach(file => {
-    })
+    })*/
+
+
+    val lines = Source.fromFile("/Users/huping/IdeaProjects/scala-learn/akka-chapter-3/docs/a.txt").getLines()
+    val result = lines.flatMap(_.split(" "))
+      .map((_, 1))
+      .toList
+      .groupBy(_._1)
+      .mapValues(_.size)
+    println(result)
   }
 
 }

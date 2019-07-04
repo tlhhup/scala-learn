@@ -38,7 +38,7 @@ class Worker(masterHost: String, masterPort: Int, memory: Long, cores: Int) exte
 
     case WorkRegistered => {
       log.info("received registered message")
-      context.system.scheduler.scheduleAtFixedRate(0 millis, HEARTBEAT_INTERVAL millis, self, SendHeartbeat)
+      context.system.scheduler.schedule(0 millis, HEARTBEAT_INTERVAL millis, self, SendHeartbeat)
     }
 
     case SendHeartbeat => {
