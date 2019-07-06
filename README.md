@@ -8,3 +8,5 @@ Scala programing learning exercise.
     2. 变量名匹配
     3. 变量绑定匹配
     4. 并发设计-->每个请求新建一个actor处理
+5. akka-chapter-4：使用akka-remote搭建的rpc
+6. akka-chapter-5：使用akka-cluster搭建的word count

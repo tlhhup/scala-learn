@@ -12,6 +12,7 @@
         <module>scala-chapter-3</module>
         <module>akka-chapter-3</module>
         <module>akka-chapter-4</module>
+        <module>akka-chapter-5</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
