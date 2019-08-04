@@ -14,6 +14,7 @@
         <module>akka-chapter-4</module>
         <module>akka-chapter-5</module>
         <module>spark-chapter-3</module>
+        <module>spark-chapter-4</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
