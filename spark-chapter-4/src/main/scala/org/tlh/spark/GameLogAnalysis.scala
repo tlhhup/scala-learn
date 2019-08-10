@@ -31,13 +31,16 @@ object GameLogAnalysis {
     //1.获取登陆用户
     val loginUsers = specifyDateLog.filter(FilterUtil.typeFilter(_, 2, 3)).cache()
 
-    val users = loginUsers.map(_.nickName).distinct()
+    val users = loginUsers.map(_.nickName).distinct().collect()
+    print(users.toList)
 
 
     //2.注册用户,首次登陆用户
     val registedUser = specifyDateLog.filter(FilterUtil.typeFilter(_, 1))
       .map(_.nickName)
       .distinct()
+      .collect()
+    print(registedUser)
 
     //3.计算用户游戏时长
     val gameTime = loginUsers.groupBy(_.nickName)
@@ -73,10 +76,27 @@ object GameLogAnalysis {
         }
         sum
       })
-      .sortBy(_._2,false)
+      .sortBy(_._2, false)
       .collect()
 
     print(gameTime.toList)
+
+    //4.计算次日留存，昨天注册的和昨今两天登陆的用户的并集
+    val yesterday = DateUtils.addDays(date, -1)
+    val yesterdayRegister = parsedRdd.filter(FilterUtil.specifyDate(yesterday, _))
+      .filter(FilterUtil.typeFilter(_, 1))
+      .map(_.nickName)
+      .distinct()
+
+    val towDayLogin = parsedRdd.filter(FilterUtil.timeBetween(yesterday, date, _))
+      .filter(FilterUtil.typeFilter(_, 2, 3))
+      .map(_.nickName)
+      .distinct()
+    val remainUser=yesterdayRegister.intersection(towDayLogin)
+
+    print(yesterdayRegister.count())
+    print(towDayLogin.count())
+    print(remainUser.count())
 
     sc.stop()
   }
