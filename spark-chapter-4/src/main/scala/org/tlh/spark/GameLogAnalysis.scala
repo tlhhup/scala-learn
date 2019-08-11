@@ -40,7 +40,7 @@ object GameLogAnalysis {
       .map(_.nickName)
       .distinct()
       .collect()
-    print(registedUser)
+    print(registedUser.toList)
 
     //3.计算用户游戏时长
     val gameTime = loginUsers.groupBy(_.nickName)
@@ -62,16 +62,12 @@ object GameLogAnalysis {
         logs.foreach {
           item =>
             item.logType match {
-              case 2 => stack.push(item)
-              case 3 => {
-                try {
-                  //如果为空抛异常，则不处理
-                  val login = stack.pop()
-                  sum += item.date.getTime - login.date.getTime
-                } catch {
-                  case e: Exception =>
-                }
+              case 2 if stack.isEmpty => stack.push(item)
+              case 3 if !stack.isEmpty => {
+                val login = stack.pop()
+                sum += item.date.getTime - login.date.getTime
               }
+              case _ => //统配类型，由于所有的类型不确定，所以必须设置统配，如果有需要可以定义类型并设置为sealed
             }
         }
         sum
@@ -92,7 +88,7 @@ object GameLogAnalysis {
       .filter(FilterUtil.typeFilter(_, 2, 3))
       .map(_.nickName)
       .distinct()
-    val remainUser=yesterdayRegister.intersection(towDayLogin)
+    val remainUser = yesterdayRegister.intersection(towDayLogin)
 
     print(yesterdayRegister.count())
     print(towDayLogin.count())
