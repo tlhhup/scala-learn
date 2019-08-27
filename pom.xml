@@ -15,6 +15,9 @@
         <module>akka-chapter-5</module>
         <module>spark-chapter-3</module>
         <module>spark-chapter-4</module>
+        <module>kafka-chapter-1</module>
+        <module>monitor-chapter-1</module>
+        <module>proguard-chapter-1</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
